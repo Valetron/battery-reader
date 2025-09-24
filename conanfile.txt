@@ -1,0 +1,9 @@
+[requires]
+spdlog/1.15.0
+boost/1.88.0
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+
