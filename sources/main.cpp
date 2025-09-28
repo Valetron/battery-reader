@@ -38,10 +38,10 @@ int main(int argc, char** argv)
         }
 
         const auto bus = vm[g_busKey].as<std::string>();
-        const uint32_t busAddr = getDigitFromHex<uint32_t>(bus);
+        const auto busAddr = getDigitFromHex<uint32_t>(bus);
 
         const auto device = vm[g_busKey].as<std::string>();
-        const uint8_t devAddr = getDigitFromHex<uint8_t>(device);
+        const auto devAddr = getDigitFromHex<uint8_t>(device);
 
         const auto logLevel = vm["verbose"].as<bool>() ? spdlog::level::debug : spdlog::level::info;
         spdlog::set_level(logLevel);
