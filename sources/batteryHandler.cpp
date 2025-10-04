@@ -1,7 +1,7 @@
 #include "batteryHandler.hpp"
 
 BatteryHandler::BatteryHandler(uint32_t bus, uint8_t i2cAddress)
-    : m_i2c{new I2CHandler(bus, i2cAddress)}
+    : m_i2c{std::make_unique<I2CHandler>(bus, i2cAddress)}
 {
 }
 

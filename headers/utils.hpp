@@ -4,13 +4,18 @@
 #include <string>
 #include <sstream>
 
-template<typename T>
+template <typename T>
 T getDigitFromHex(const std::string& hexVal)
 {
     T res {};
-
     std::stringstream ss;
-    ss << std::hex << hexVal;
+
+    if (hexVal.compare(0, 2, "0x") == 0 || hexVal.compare(0, 2, "0X") == 0) {
+        ss << std::hex << hexVal.substr(2);
+    } else {
+        ss << std::hex << hexVal;
+    }
+
     ss >> res;
 
     return res;

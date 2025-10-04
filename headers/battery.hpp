@@ -43,30 +43,38 @@ struct BatteryInfo
     std::string ManufacturerName {};
     std::string DeviceName {};
     std::string DeviceChemistry {};
-
-    template<typename OStream>
-    friend OStream& operator<<(OStream& os, const BatteryInfo& to_log)
-    {
-        fmt::format_to(std::ostream_iterator<char>(os), "\nTemperature - {} K", to_log.Temperature);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nRemainingCapacity - {} mAh", to_log.RemainingCapacity);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nFullChargeCapacity - {} mAh", to_log.FullChargeCapacity);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nStateOfCharge - {} %", to_log.StateOfCharge);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nChargingCurrent - {} mA", to_log.ChargingCurrent);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nChargingVoltage - {} mV", to_log.ChargingVoltage);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nAverageCurrent - {} mA", to_log.AverageCurrent);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nVoltage - {} mV", to_log.Voltage);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nCycleCount - {}", to_log.CycleCount);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nDesignCapacity - {} mAh", to_log.DesignCapacity);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nDesignVoltage - {} mV", to_log.DesignVoltage);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nManufactureDate - {}", FormatDate(to_log.ManufactureDate));
-        fmt::format_to(std::ostream_iterator<char>(os), "\nSerialNumber - {}", to_log.SerialNumber);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nManufacturerName - {}", to_log.ManufacturerName);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nDeviceName - {}", to_log.DeviceName);
-        fmt::format_to(std::ostream_iterator<char>(os), "\nDeviceChemistry - {}", to_log.DeviceChemistry);
-
-        return os;
-    }
 };
 
+template <>
+struct fmt::formatter<BatteryInfo>
+{
+    constexpr auto parse(fmt::format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const BatteryInfo& bat, FormatContext& ctx) const
+    {
+        fmt::format_to(ctx.out(), "Temperature - {} K", bat.Temperature);
+        fmt::format_to(ctx.out(), "\nRemainingCapacity - {} mAh", bat.RemainingCapacity);
+        fmt::format_to(ctx.out(), "\nFullChargeCapacity - {} mAh", bat.FullChargeCapacity);
+        fmt::format_to(ctx.out(), "\nStateOfCharge - {} %", bat.StateOfCharge);
+        fmt::format_to(ctx.out(), "\nChargingCurrent - {} mA", bat.ChargingCurrent);
+        fmt::format_to(ctx.out(), "\nChargingVoltage - {} mV", bat.ChargingVoltage);
+        fmt::format_to(ctx.out(), "\nAverageCurrent - {} mA", bat.AverageCurrent);
+        fmt::format_to(ctx.out(), "\nVoltage - {} mV", bat.Voltage);
+        fmt::format_to(ctx.out(), "\nCycleCount - {}", bat.CycleCount);
+        fmt::format_to(ctx.out(), "\nDesignCapacity - {} mAh", bat.DesignCapacity);
+        fmt::format_to(ctx.out(), "\nDesignVoltage - {} mV", bat.DesignVoltage);
+        fmt::format_to(ctx.out(), "\nManufactureDate - {}", FormatDate(bat.ManufactureDate));
+        fmt::format_to(ctx.out(), "\nSerialNumber - {}", bat.SerialNumber);
+        fmt::format_to(ctx.out(), "\nManufacturerName - {}", bat.ManufacturerName);
+        fmt::format_to(ctx.out(), "\nDeviceName - {}", bat.DeviceName);
+        fmt::format_to(ctx.out(), "\nDeviceChemistry - {}", bat.DeviceChemistry);
+
+        return ctx.out();
+    }
+};
 
 #endif // BATTERY_HPP

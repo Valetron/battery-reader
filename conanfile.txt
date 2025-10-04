@@ -1,6 +1,7 @@
 [requires]
 spdlog/1.15.0
-boost/1.88.0
+boost/1.84.0
+i2c-tools/4.3
 
 [options]
 boost/*:shared=False

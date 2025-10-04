@@ -1,6 +1,6 @@
 [settings]
 os=Linux
-arch=armv7hf
+arch=armv7
 compiler=gcc
 build_type=Release
 compiler.cppstd=20
@@ -8,7 +8,14 @@ compiler.libcxx=libstdc++11
 compiler.version=10
 
 [buildenv]
-CC=arm-linux-gnueabihf-gcc
-CXX=arm-linux-gnueabihf-g++
-LD=arm-linux-gnueabihf-ld
+CC=arm-linux-gnueabihf-gcc-9
+CXX=arm-linux-gnueabihf-g++-9
+AR=arm-linux-gnueabihf-ar
+AS=arm-linux-gnueabihf-as
+RANLIB=arm-linux-gnueabihf-ranlib
+STRIP=arm-linux-gnueabihf-strip
+CXXFLAGS = -march=armv7-a -mfpu=neon -mfloat-abi=hard 
+
+
+
 

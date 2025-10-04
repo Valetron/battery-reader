@@ -9,8 +9,10 @@ if(CCACHE_PROGRAM)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${CCACHE_PROGRAM})
 endif()
 
-find_package(Boost REQUIRED COMPONENTS program_options)
+
+find_package(Boost REQUIRED)
 find_package(spdlog REQUIRED)
+find_package(i2c-tools REQUIRED)
 
 file(GLOB SOURCES "sources/*.cpp")
 file(GLOB HEADERS "headers/*.hpp")
@@ -25,4 +27,4 @@ add_compile_definitions(SPDLOG_COMPILED_LIB)
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC -DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
 target_include_directories(${PROJECT_NAME} PUBLIC "headers")
-target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog Boost::program_options i2c)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog Boost::program_options i2c-tools::i2c-tools -static-libgcc -static-libstdc++)

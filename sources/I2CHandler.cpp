@@ -17,6 +17,10 @@ I2CHandler::I2CHandler(uint32_t bus, uint8_t i2cAddress)
     : m_mcuI2cAddress(i2cAddress)
     , m_i2cFilepath(fmt::format("/dev/i2c-{}", bus))
 {
+    if (!openBus())
+    {
+        throw std::runtime_error("I2CHandler not created");
+    }
 }
 
 I2CHandler::~I2CHandler()
@@ -47,7 +51,7 @@ bool I2CHandler::openBus()
 
 void I2CHandler::closeBus()
 {
-    if(m_i2cBus >= 0)
+    if (m_i2cBus >= 0)
     {
         close(m_i2cBus);
         m_i2cBus = -1;
